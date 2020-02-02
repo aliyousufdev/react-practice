@@ -1,5 +1,5 @@
-import React from "react";
-import { getMovies } from "../services/fakeMovieService";
+import React, {Fragment} from "react";
+import {getMovies} from "../services/fakeMovieService";
 
 class Movies extends React.Component {
 
@@ -8,14 +8,13 @@ class Movies extends React.Component {
 	};
 
 	componentDidMount() {
-		this.setState({ movies: getMovies()})
+		this.setState({movies: getMovies()})
 	}
 
 	render() {
 		return (
 			<div>
-				{this.moviesCount()}
-				<hr/>
+				{this.noMoviesMessage()}
 				{this.movieTable()}
 			</div>
 		);
@@ -24,21 +23,25 @@ class Movies extends React.Component {
 	movieTable = () => {
 		if (this.state.movies.length > 0) {
 			return (
-				<div className="table-responsive">
-					<table className="table table-bordered">
-						<thead>
-						<tr>
-							<th>Title</th>
-							<th>Genre</th>
-							<th>Stock</th>
-							<th>Rate</th>
-							<th/>
-						</tr>
-						</thead>
+				<Fragment>
+					<p>Showing {this.state.movies.length} movies in the database</p>
+					<hr/>
+					<div className="table-responsive">
+						<table className="table table-bordered">
+							<thead>
+							<tr>
+								<th>Title</th>
+								<th>Genre</th>
+								<th>Stock</th>
+								<th>Rate</th>
+								<th/>
+							</tr>
+							</thead>
 
-						<tbody>{this.state.movies.map(this.movieTableRow)}</tbody>
-					</table>
-				</div>
+							<tbody>{this.state.movies.map(this.movieTableRow)}</tbody>
+						</table>
+					</div>
+				</Fragment>
 			)
 		}
 	};
@@ -64,13 +67,12 @@ class Movies extends React.Component {
 
 	deleteMovieHandler = id => {
 		let movies = this.state.movies.filter(movie => movie._id !== id);
-		this.setState({ movies });
+		this.setState({movies});
 		console.log('Deleted movie id ', id)
 	};
 
-	moviesCount = () => {
+	noMoviesMessage = () => {
 		if (this.state.movies.length === 0) return <p>There are no movies in the database</p>
-		return <p>There are {this.state.movies.length} movies in the database</p>
 	}
 }
 
