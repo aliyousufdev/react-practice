@@ -13,7 +13,7 @@ class Movies extends React.Component {
 
 	render() {
 		return (
-			<div role="main" className="container">
+			<div>
 				{this.moviesCount()}
 				<hr/>
 				{this.movieTable()}
