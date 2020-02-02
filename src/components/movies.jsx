@@ -25,7 +25,6 @@ class Movies extends React.Component {
 			return (
 				<Fragment>
 					<p>Showing {this.state.movies.length} movies in the database</p>
-					<hr/>
 					<div className="table-responsive">
 						<table className="table table-bordered">
 							<thead>
