@@ -55,7 +55,7 @@ class Movies extends React.Component {
 						className="btn btn-danger btn-sm"
 						onClick={() => this.deleteMovieHandler(movie._id)}
 					>
-						Delete
+						<i className="fa fa-trash-o"/> Delete
 					</button>
 				</td>
 			</tr>
