@@ -12,6 +12,14 @@ class App extends React.Component {
 			<div role="main" className="container">
 				{this.moviesCount()}
 				<hr/>
+				{this.movieTable()}
+			</div>
+		);
+	}
+
+	movieTable = () => {
+		if (this.state.movies.length > 0) {
+			return (
 				<div className="table-responsive">
 					<table className="table table-bordered">
 						<thead>
@@ -27,9 +35,9 @@ class App extends React.Component {
 						<tbody>{this.state.movies.map(this.movieTableRow)}</tbody>
 					</table>
 				</div>
-			</div>
-		);
-	}
+			)
+		}
+	};
 
 	movieTableRow = movie => {
 		return (
@@ -41,7 +49,7 @@ class App extends React.Component {
 				<td>
 					<button
 						className="btn btn-danger btn-sm"
-						onClick={() => this.deleteMovie(movie._id)}
+						onClick={() => this.deleteMovieHandler(movie._id)}
 					>
 						Delete
 					</button>
@@ -50,8 +58,10 @@ class App extends React.Component {
 		)
 	};
 
-	deleteMovie = id => {
-		console.log('Delete movie id ', id)
+	deleteMovieHandler = id => {
+		let movies = this.state.movies.filter(movie => movie._id !== id);
+		this.setState({ movies });
+		console.log('Deleted movie id ', id)
 	};
 
 	moviesCount = () => {
