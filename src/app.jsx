@@ -41,7 +41,7 @@ class App extends React.Component {
 				<td>
 					<button
 						className="btn btn-danger btn-sm"
-						onClick={this.deleteMovie(movie._id)}
+						onClick={() => this.deleteMovie(movie._id)}
 					>
 						Delete
 					</button>
