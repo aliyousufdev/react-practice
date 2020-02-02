@@ -4,8 +4,12 @@ import {getMovies} from "./services/fakeMovieService";
 class App extends React.Component {
 
 	state = {
-		movies: getMovies()
+		movies: []
 	};
+
+	componentDidMount() {
+		this.setState({ movies: getMovies()})
+	}
 
 	render() {
 		return (
