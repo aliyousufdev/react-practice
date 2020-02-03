@@ -1,6 +1,6 @@
 import React from "react";
 import Counter from "./counter";
-import {map, prop} from "ramda";
+import {filter, map, prop} from "ramda";
 
 class Counters extends React.Component {
 
@@ -14,12 +14,17 @@ class Counters extends React.Component {
 		]
 	};
 
+	deleteHandler = (id) => {
+		const counters = filter(c => c.id !== id, prop('counters', this.state));
+		this.setState({ counters })
+	};
+
 	render() {
 		const counters = prop('counters', this.state);
 		return (
 			<div>
 				{
-					map(c => <Counter key={c.id} value={c.value} />, counters)
+					map(c => <Counter onDelete={this.deleteHandler} key={c.id} {...c} />, counters)
 				}
 			</div>
 		);
