@@ -14,20 +14,49 @@ class Counters extends React.Component {
 		]
 	};
 
+	render() {
+		const counters = prop('counters', this.state);
+		return (
+			<div>
+				{this.resetButton()}
+				{
+					map(c => <Counter onIncrement={this.incrementHandler} onDelete={this.deleteHandler} key={c.id} {...c} />, counters)
+				}
+			</div>
+		);
+	}
+
+	resetButton = () => (
+		<div className="m-2">
+			<button onClick={this.resetHandler} className="btn btn-danger btn-sm">
+				Reset All
+			</button>
+		</div>
+	);
+
+	incrementHandler = id => {
+		const counters = map(counter => {
+			if (counter.id === id) {
+				counter.value++;
+			}
+			return counter;
+		}, this.state.counters);
+
+		this.setState({ counters })
+	};
+
 	deleteHandler = (id) => {
 		const counters = filter(c => c.id !== id, prop('counters', this.state));
 		this.setState({ counters })
 	};
 
-	render() {
-		const counters = prop('counters', this.state);
-		return (
-			<div>
-				{
-					map(c => <Counter onDelete={this.deleteHandler} key={c.id} {...c} />, counters)
-				}
-			</div>
-		);
+	resetHandler = () => {
+		const counters = map(counter => {
+			counter.value = 0;
+			return counter
+		}, this.state.counters);
+
+		this.setState({ counters })
 	}
 }
 
