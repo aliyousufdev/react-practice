@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 import {getMovies} from "../services/fakeMovieService";
+import {isEmpty, map, prop, filter, path} from "ramda";
 
 class Movies extends React.Component {
 
@@ -21,10 +22,10 @@ class Movies extends React.Component {
 	}
 
 	movieTable = () => {
-		if (this.state.movies.length > 0) {
+		if (!this.isMovieListEmpty()) {
 			return (
 				<Fragment>
-					<p>Showing {this.state.movies.length} movies in the database</p>
+					<p>Showing {this.movieCounts()} movies in the database</p>
 					<div className="table-responsive">
 						<table className="table table-bordered">
 							<thead>
@@ -36,8 +37,11 @@ class Movies extends React.Component {
 								<th/>
 							</tr>
 							</thead>
-
-							<tbody>{this.state.movies.map(this.movieTableRow)}</tbody>
+							<tbody>
+							{
+								map(this.movieTableRow, prop('movies', this.state))
+							}
+							</tbody>
 						</table>
 					</div>
 				</Fragment>
@@ -65,13 +69,21 @@ class Movies extends React.Component {
 	};
 
 	deleteMovieHandler = id => {
-		let movies = this.state.movies.filter(movie => movie._id !== id);
+		let movies = filter(movie => movie._id !== id, prop('movies', this.state));
 		this.setState({movies});
 		console.log('Deleted movie id ', id)
 	};
 
 	noMoviesMessage = () => {
-		if (this.state.movies.length === 0) return <p>There are no movies in the database</p>
+		if (this.isMovieListEmpty()) return <p>There are no movies in the database</p>
+	};
+
+	isMovieListEmpty = () => {
+		return isEmpty(prop('movies', this.state));
+	};
+
+	movieCounts = () => {
+		return path(['movies', 'length'], this.state);
 	}
 }
 
