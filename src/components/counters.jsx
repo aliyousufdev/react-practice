@@ -1,6 +1,6 @@
 import React from "react";
 import Counter from "./counter";
-import {filter, map, prop} from "ramda";
+import {map, prop} from "ramda";
 
 class Counters extends React.Component {
 
