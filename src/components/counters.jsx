@@ -10,7 +10,8 @@ class Counters extends React.Component {
 			<div>
 				{this.resetButton()}
 				{
-					map(c => <Counter onIncrement={this.props.onIncrement} onDelete={this.props.onDelete}
+					map(c => <Counter onIncrement={this.props.onIncrement}
+											onDelete={this.props.onDelete}
 											key={c.id} {...c} />, counters)
 				}
 			</div>

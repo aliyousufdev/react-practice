@@ -43,7 +43,7 @@ class App extends Component {
 	render() {
 		return (
 			<Fragment>
-				<Navbar />
+				<Navbar totalCounter={this.totalCounters()} />
 				<div role="main" className="container">
 					<Counters
 						counters={this.state.counters}
@@ -55,6 +55,8 @@ class App extends Component {
 			</Fragment>
 		);
 	}
+
+	totalCounters = () => prop('length', filter(c => c.value, this.state.counters));
 }
 
 export default App;
