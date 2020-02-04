@@ -1,22 +1,22 @@
 import React from "react";
 import Counter from "./counter";
-import {map, prop} from "ramda";
+import {map} from "ramda";
 
 class Counters extends React.Component {
 
 	render() {
-		const counters = prop('counters', this.props);
 		return (
 			<div>
 				{this.resetButton()}
-				{
-					map(c => <Counter onIncrement={this.props.onIncrement}
-											onDelete={this.props.onDelete}
-											key={c.id} {...c} />, counters)
-				}
+				{this.countersList()}
 			</div>
 		);
 	}
+
+	countersList = () => {
+		const { counters, onIncrement, onDelete } = this.props;
+		return map(c => <Counter onIncrement={onIncrement} onDelete={onDelete} key={c.id} {...c} />, counters)
+	};
 
 	resetButton = () => (
 		<div className="m-2">
