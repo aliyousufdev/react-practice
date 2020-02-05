@@ -1,21 +1,26 @@
 import React, {Component} from "react";
+import 'font-awesome/css/font-awesome.css'
 
 class Counter extends Component {
 
 	render() {
 		return (
-			<div>
-				{this.counterValue()}
-				{this.incrementButton()}
-				{this.decrementButton()}
-				{this.deleteButton()}
+			<div className="row">
+				<div className="col-1">
+					{this.counterValue()}
+				</div>
+
+				<div className="col">
+					{this.incrementButton()}
+					{this.decrementButton()}
+					{this.deleteButton()}
+				</div>
 			</div>
 		);
 	}
 
 	counterValue = () => (
 		<span
-			style={{minWidth: 50}}
 			className={this.getBadgeClasses()}
 		>
 			{this.formatCount()}
@@ -27,7 +32,7 @@ class Counter extends Component {
 			onClick={() => this.props.onIncrement(this.props.id)}
 			className="btn btn-secondary btn-sm"
 		>
-			+
+			<i className="fa fa-plus"/>
 		</button>
 	);
 
@@ -37,7 +42,7 @@ class Counter extends Component {
 			disabled={this.props.value === 0}
 			className="btn btn-secondary btn-sm m-2"
 		>
-			-
+			<i className="fa fa-minus"/>
 		</button>
 	);
 
@@ -46,12 +51,12 @@ class Counter extends Component {
 			onClick={() => this.props.onDelete(this.props.id)}
 			className="btn btn-danger btn-sm"
 		>
-			x
+			<i className="fa fa-trash"/>
 		</button>
 	);
 
 	getBadgeClasses() {
-		let classes = "badge m-2 badge-";
+		let classes = "badge mt-2 badge-";
 		classes += this.props.value === 0 ? "warning" : "primary";
 		return classes;
 	}

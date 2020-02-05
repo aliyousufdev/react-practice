@@ -20,7 +20,7 @@ class Counters extends React.Component {
 	};
 
 	resetButton = () => (
-		<div className="m-2">
+		<div className="my-2">
 			<button onClick={this.props.onReset} className="btn btn-danger btn-sm">
 				Reset All
 			</button>
