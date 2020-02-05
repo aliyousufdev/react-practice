@@ -8,6 +8,7 @@ class Counter extends Component {
 				{this.counterValue()}
 				{this.incrementButton()}
 				{this.decrementButton()}
+				{this.deleteButton()}
 			</div>
 		);
 	}
@@ -26,16 +27,26 @@ class Counter extends Component {
 			onClick={() => this.props.onIncrement(this.props.id)}
 			className="btn btn-secondary btn-sm"
 		>
-			Increment
+			+
 		</button>
 	);
 
 	decrementButton = () => (
 		<button
-			onClick={() => this.props.onDelete(this.props.id)}
-			className="btn btn-danger btn-sm m-2"
+			onClick={() => this.props.onDecrement(this.props.id)}
+			disabled={this.props.value === 0}
+			className="btn btn-secondary btn-sm m-2"
 		>
-			Delete
+			-
+		</button>
+	);
+
+	deleteButton = () => (
+		<button
+			onClick={() => this.props.onDelete(this.props.id)}
+			className="btn btn-danger btn-sm"
+		>
+			x
 		</button>
 	);
 

@@ -14,8 +14,9 @@ class Counters extends React.Component {
 	}
 
 	countersList = () => {
-		const { counters, onIncrement, onDelete } = this.props;
-		return map(c => <Counter onIncrement={onIncrement} onDelete={onDelete} key={c.id} {...c} />, counters)
+		const {counters, onIncrement, onDelete, onDecrement} = this.props;
+		return map(c => <Counter onIncrement={onIncrement} onDecrement={onDecrement} onDelete={onDelete}
+										 key={c.id} {...c} />, counters)
 	};
 
 	resetButton = () => (

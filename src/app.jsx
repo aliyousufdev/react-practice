@@ -17,9 +17,16 @@ class App extends Component {
 
 	incrementHandler = id => {
 		const counters = map(counter => {
-			if (counter.id === id) {
-				counter.value++;
-			}
+			if (counter.id === id) counter.value++;
+			return counter;
+		}, this.state.counters);
+
+		this.setState({ counters })
+	};
+
+	decrementHandler = id => {
+		const counters = map(counter => {
+			if (counter.id === id) counter.value--;
 			return counter;
 		}, this.state.counters);
 
@@ -50,6 +57,7 @@ class App extends Component {
 						onReset={this.resetHandler}
 						onDelete={this.deleteHandler}
 						onIncrement={this.incrementHandler}
+						onDecrement={this.decrementHandler}
 					/>
 				</div>
 			</Fragment>
