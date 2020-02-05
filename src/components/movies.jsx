@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import {getMovies} from "../services/fakeMovieService";
 import {isEmpty, map, prop, filter, path} from "ramda";
+import LikeButton from "./likeButton";
 
 class Movies extends React.Component {
 
@@ -9,7 +10,11 @@ class Movies extends React.Component {
 	};
 
 	componentDidMount() {
-		this.setState({movies: getMovies()})
+		const movies = getMovies().map(m => {
+			m.liked = false;
+			return m;
+		});
+		this.setState({movies})
 	}
 
 	render() {
@@ -27,13 +32,14 @@ class Movies extends React.Component {
 				<Fragment>
 					<p>Showing {this.movieCounts()} movies in the database</p>
 					<div className="table-responsive">
-						<table className="table table-bordered">
+						<table className="table">
 							<thead>
 							<tr>
 								<th>Title</th>
 								<th>Genre</th>
 								<th>Stock</th>
 								<th>Rate</th>
+								<th/>
 								<th/>
 							</tr>
 							</thead>
@@ -56,6 +62,9 @@ class Movies extends React.Component {
 				<td>{movie.genre.name}</td>
 				<td>{movie.numberInStock}</td>
 				<td>{movie.dailyRentalRate}</td>
+				<td>
+					<LikeButton liked={movie.liked}/>
+				</td>
 				<td>
 					<button
 						className="btn btn-danger btn-sm"
