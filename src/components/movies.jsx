@@ -63,7 +63,7 @@ class Movies extends React.Component {
 				<td>{movie.numberInStock}</td>
 				<td>{movie.dailyRentalRate}</td>
 				<td>
-					<LikeButton liked={movie.liked}/>
+					<LikeButton id={movie._id} onLiked={this.likeHandler} liked={movie.liked}/>
 				</td>
 				<td>
 					<button
@@ -75,6 +75,15 @@ class Movies extends React.Component {
 				</td>
 			</tr>
 		)
+	};
+
+	likeHandler = id => {
+		const movies = map(movie => {
+			if (movie._id === id) movie.liked = !movie.liked;
+			return movie;
+		}, this.state.movies);
+
+		this.setState({movies})
 	};
 
 	deleteMovieHandler = id => {

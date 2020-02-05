@@ -1,11 +1,18 @@
 import React from "react";
 
+const getLikeButtonClasses = (liked=false) => {
+	if (liked) return 'fa fa-heart text-danger';
+	return 'fa fa-heart-o'
+};
+
 const LikeButton = (props) => {
 	const styles = {
-		pointer: 'cursor'
+		cursor: 'pointer'
 	};
-	if (props.liked) return <i style={styles} className="fa fa-heart"/>;
-	return <i style={styles} className="fa fa-heart-o"/>
+	return <i style={styles} onClick={() => props.onLiked(props.id)} className={getLikeButtonClasses(props.liked)}/>
 };
+
+
+
 
 export default LikeButton;
