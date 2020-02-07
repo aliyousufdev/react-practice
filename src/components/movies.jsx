@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import {getMovies} from "../services/fakeMovieService";
 import {isEmpty, map, prop, filter, path} from "ramda";
 import Like from "./common/Like";
+import Pagination from "./common/pagination";
 
 class Movies extends React.Component {
 
@@ -22,6 +23,7 @@ class Movies extends React.Component {
 			<div>
 				{this.noMoviesMessage()}
 				{this.movieTable()}
+				<Pagination/>
 			</div>
 		);
 	}
