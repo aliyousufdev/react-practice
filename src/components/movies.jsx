@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import {getMovies} from "../services/fakeMovieService";
 import {isEmpty, map, prop, filter, path} from "ramda";
-import LikeButton from "./likeButton";
+import Like from "./common/Like";
 
 class Movies extends React.Component {
 
@@ -63,7 +63,7 @@ class Movies extends React.Component {
 				<td>{movie.numberInStock}</td>
 				<td>{movie.dailyRentalRate}</td>
 				<td>
-					<LikeButton id={movie._id} onLiked={this.likeHandler} liked={movie.liked}/>
+					<Like liked={movie.liked} onClick={() => this.likeHandler(movie)} />
 				</td>
 				<td>
 					<button
@@ -77,13 +77,11 @@ class Movies extends React.Component {
 		)
 	};
 
-	likeHandler = id => {
-		const movies = map(movie => {
-			if (movie._id === id) movie.liked = !movie.liked;
-			return movie;
-		}, this.state.movies);
-
-		this.setState({movies})
+	likeHandler = movie => {
+		const movies = [...this.state.movies];
+		const index = movies.indexOf(movie);
+		movies[index] = {...movie, liked: !movie.liked};
+		this.setState({movies});
 	};
 
 	deleteMovieHandler = id => {
