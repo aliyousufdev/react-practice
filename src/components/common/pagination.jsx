@@ -1,6 +1,9 @@
 import React from "react";
 
 const Pagination = (props) => {
+	const perPage = props.perPage || 4;
+	if (props.counts < perPage) return null;
+
 	return (
 		<nav aria-label="Page navigation example">
 			<ul className="pagination justify-content-center">

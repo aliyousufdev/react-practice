@@ -23,7 +23,7 @@ class Movies extends React.Component {
 			<div>
 				{this.noMoviesMessage()}
 				{this.movieTable()}
-				<Pagination/>
+				<Pagination counts={1}/>
 			</div>
 		);
 	}
