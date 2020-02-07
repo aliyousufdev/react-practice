@@ -7,7 +7,8 @@ import Pagination from "./common/pagination";
 class Movies extends React.Component {
 
 	state = {
-		movies: []
+		movies: [],
+		perPage: 4
 	};
 
 	componentDidMount() {
@@ -23,7 +24,10 @@ class Movies extends React.Component {
 			<div>
 				{this.noMoviesMessage()}
 				{this.movieTable()}
-				<Pagination counts={1}/>
+				<Pagination
+					itemCounts={this.movieCounts()}
+					perPage={this.state.perPage}
+					onPageChange={this.handlePageChange}/>
 			</div>
 		);
 	}
@@ -65,7 +69,7 @@ class Movies extends React.Component {
 				<td>{movie.numberInStock}</td>
 				<td>{movie.dailyRentalRate}</td>
 				<td>
-					<Like liked={movie.liked} onClick={() => this.likeHandler(movie)} />
+					<Like liked={movie.liked} onClick={() => this.likeHandler(movie)}/>
 				</td>
 				<td>
 					<button
@@ -90,6 +94,10 @@ class Movies extends React.Component {
 		let movies = filter(movie => movie._id !== id, prop('movies', this.state));
 		this.setState({movies});
 		console.log('Deleted movie id ', id)
+	};
+
+	handlePageChange = page => {
+		console.log(page);
 	};
 
 	noMoviesMessage = () => {

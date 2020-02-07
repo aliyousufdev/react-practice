@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const Pagination = (props) => {
 	const perPage = props.perPage || 4;
-	if (props.counts < perPage) return null;
+	if (props.itemCounts < perPage) return null;
 
 	return (
 		<nav aria-label="Page navigation example">
@@ -13,6 +14,12 @@ const Pagination = (props) => {
 			</ul>
 		</nav>
 	)
+};
+
+Pagination.propTypes = {
+	itemCounts: PropTypes.number.isRequired,
+	perPage: PropTypes.number,
+	onPageChange: PropTypes.func
 };
 
 export default Pagination;
