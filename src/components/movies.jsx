@@ -8,7 +8,8 @@ class Movies extends React.Component {
 
 	state = {
 		movies: [],
-		perPage: 4
+		perPage: 4,
+		currentPage: 1
 	};
 
 	componentDidMount() {
@@ -20,13 +21,15 @@ class Movies extends React.Component {
 	}
 
 	render() {
+		const { perPage, currentPage } = this.state;
 		return (
 			<div>
 				{this.noMoviesMessage()}
 				{this.movieTable()}
 				<Pagination
 					itemCounts={this.movieCounts()}
-					perPage={this.state.perPage}
+					perPage={perPage}
+					currentPage={currentPage}
 					onPageChange={this.handlePageChange}/>
 			</div>
 		);
@@ -97,7 +100,7 @@ class Movies extends React.Component {
 	};
 
 	handlePageChange = page => {
-		console.log(page);
+		this.setState({ currentPage: page})
 	};
 
 	noMoviesMessage = () => {

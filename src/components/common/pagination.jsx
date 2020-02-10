@@ -1,27 +1,24 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { times } from "ramda";
+import {map, range} from "ramda";
 
-const Pagination = ({ itemCounts, perPage, onPageChange}) => {
-	if (itemCounts < perPage) return null;
-
+const Pagination = ({ itemCounts, perPage, currentPage, onPageChange}) => {
 	const totalPage = Math.ceil(itemCounts / perPage);
-	const items = times(item, totalPage);
+	if (totalPage === 1) return null;
+	const pages = range(1, totalPage+1);
 
 	return (
 		<nav aria-label="Page navigation example">
 			<ul className="pagination justify-content-center">
-				{items}
+				{map(page => (
+					<li key={page} className={page === currentPage ? 'page-item active' : 'page-item'}>
+						<a className="page-link" onClick={() => onPageChange(page)}>{page}</a>
+					</li>
+				), pages)}
 			</ul>
 		</nav>
 	)
 };
-
-const item = idx => (
-	<li key={idx} className="page-item">
-		<a className="page-link" href="/">{idx+1}</a>
-	</li>
-);
 
 Pagination.defaultProps = {
 	perPage: 8
