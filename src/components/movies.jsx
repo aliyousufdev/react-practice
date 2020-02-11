@@ -4,13 +4,17 @@ import {isEmpty, map, prop, filter, path} from "ramda";
 import Like from "./common/Like";
 import Pagination from "./common/pagination";
 import {paginate} from "../utils/pagination";
+import GenreFilter from "./common/genreFilter";
+import {getGenres} from "../services/fakeGenreService";
 
 class Movies extends React.Component {
 
 	state = {
 		movies: [],
 		perPage: 4,
-		currentPage: 1
+		currentPage: 1,
+		genres: [],
+		selectedGenre: 'all'
 	};
 
 	componentDidMount() {
@@ -18,20 +22,29 @@ class Movies extends React.Component {
 			m.liked = false;
 			return m;
 		});
-		this.setState({movies})
+		this.setState({movies});
+		const genres = getGenres();
+		this.setState({ genres });
 	}
 
 	render() {
-		const { perPage, currentPage } = this.state;
+		const { perPage, currentPage, genres, selectedGenre } = this.state;
 		return (
 			<div>
 				{this.noMoviesMessage()}
-				{this.movieTable()}
-				<Pagination
-					itemCounts={this.movieCounts()}
-					perPage={perPage}
-					currentPage={currentPage}
-					onPageChange={this.handlePageChange}/>
+				<div className="row">
+					<div className="col-md-3">
+						<GenreFilter filterHandler={this.genreFilterHandler} genres={genres} selectedGenre={selectedGenre}/>
+					</div>
+					<div className="col-md-9">
+						{this.movieTable()}
+						<Pagination
+							itemCounts={this.movieCounts()}
+							perPage={perPage}
+							currentPage={currentPage}
+							onPageChange={this.handlePageChange}/>
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -118,6 +131,10 @@ class Movies extends React.Component {
 
 	movieCounts = () => {
 		return path(['movies', 'length'], this.state);
+	};
+
+	genreFilterHandler = (selectedGenre) => {
+		this.setState({ selectedGenre })
 	}
 }
 
