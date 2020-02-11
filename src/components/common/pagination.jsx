@@ -12,7 +12,7 @@ const Pagination = ({ itemCounts, perPage, currentPage, onPageChange}) => {
 			<ul className="pagination justify-content-center">
 				{map(page => (
 					<li key={page} className={page === currentPage ? 'page-item active' : 'page-item'}>
-						<a className="page-link" onClick={() => onPageChange(page)}>{page}</a>
+						<button className="page-link" onClick={() => onPageChange(page)}>{page}</button>
 					</li>
 				), pages)}
 			</ul>

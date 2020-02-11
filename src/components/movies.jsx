@@ -3,6 +3,7 @@ import {getMovies} from "../services/fakeMovieService";
 import {isEmpty, map, prop, filter, path} from "ramda";
 import Like from "./common/Like";
 import Pagination from "./common/pagination";
+import {paginate} from "../utils/pagination";
 
 class Movies extends React.Component {
 
@@ -36,6 +37,10 @@ class Movies extends React.Component {
 	}
 
 	movieTable = () => {
+
+		const {movies: allMovies, currentPage, perPage } = this.state;
+		const movies = paginate(allMovies, currentPage, perPage);
+
 		if (!this.isMovieListEmpty()) {
 			return (
 				<Fragment>
@@ -54,7 +59,7 @@ class Movies extends React.Component {
 							</thead>
 							<tbody>
 							{
-								map(this.movieTableRow, prop('movies', this.state))
+								map(this.movieTableRow, movies)
 							}
 							</tbody>
 						</table>
