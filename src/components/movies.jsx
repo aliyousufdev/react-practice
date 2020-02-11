@@ -51,9 +51,8 @@ class Movies extends React.Component {
 
 	movieTable = () => {
 
-		const {movies: allMovies, selectedGenre, currentPage, perPage } = this.state;
-		let movies;
-		movies = paginate(allMovies, currentPage, perPage);
+		const {movies: allMovies, currentPage, perPage } = this.state;
+		const movies = paginate(allMovies, currentPage, perPage);
 
 		if (!this.isMovieListEmpty()) {
 			return (
@@ -136,6 +135,12 @@ class Movies extends React.Component {
 
 	genreFilterHandler = (selectedGenre) => {
 		this.setState({ selectedGenre })
+		if (!selectedGenre) {
+			this.setState({ movies: getMovies()})
+			return true;
+		}
+		const movies = filter(movie => movie.genre._id === selectedGenre, getMovies());
+		this.setState({ movies, currentPage: 1 })
 	}
 }
 
