@@ -8,8 +8,8 @@ const GenreFilter = props => {
 	return (
 		<ul className="list-group">
 			<li style={{cursor: 'pointer'}}
-				 onClick={() => filterHandler('all')}
-				 className={selectedGenre === 'all' ? 'list-group-item active' : 'list-group-item'}
+				 onClick={() => filterHandler()}
+				 className={!selectedGenre ? 'list-group-item active' : 'list-group-item'}
 			>
 				All Genres
 			</li>
@@ -17,8 +17,8 @@ const GenreFilter = props => {
 				map(
 					genre => (
 						<li style={{cursor: 'pointer'}} key={genre._id}
-							 onClick={() => filterHandler(genre.name)}
-							 className={selectedGenre === genre.name ? 'list-group-item active' : 'list-group-item'}
+							 onClick={() => filterHandler(genre._id)}
+							 className={selectedGenre === genre._id ? 'list-group-item active' : 'list-group-item'}
 						>
 							{genre.name}
 						</li>
@@ -32,7 +32,7 @@ const GenreFilter = props => {
 
 GenreFilter.propTypes = {
 	genres: PropTypes.array.isRequired,
-	selectedGenre: PropTypes.string.isRequired,
+	selectedGenre: PropTypes.string,
 	filterHandler: PropTypes.func.isRequired
 };
 

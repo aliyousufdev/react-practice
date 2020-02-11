@@ -14,7 +14,7 @@ class Movies extends React.Component {
 		perPage: 4,
 		currentPage: 1,
 		genres: [],
-		selectedGenre: 'all'
+		selectedGenre: null
 	};
 
 	componentDidMount() {
@@ -51,8 +51,9 @@ class Movies extends React.Component {
 
 	movieTable = () => {
 
-		const {movies: allMovies, currentPage, perPage } = this.state;
-		const movies = paginate(allMovies, currentPage, perPage);
+		const {movies: allMovies, selectedGenre, currentPage, perPage } = this.state;
+		let movies;
+		movies = paginate(allMovies, currentPage, perPage);
 
 		if (!this.isMovieListEmpty()) {
 			return (
